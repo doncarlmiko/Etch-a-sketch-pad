@@ -1,10 +1,10 @@
 const container=document.querySelector('.content-container');
 
 let counter;
-let counter2
+let counter2;
 
-
-const gridSize = 60;
+let isDrawing = false; // Track if the user is holding the mouse button
+const gridSize = 20;
 
 function createGrid(size){
     //const totalCells = size * size;
@@ -22,19 +22,37 @@ function createGrid(size){
             
             divRows.appendChild(divColumns);
             divColumns.classList.add('columns');
+
+            //Adjust cell size depending on the grid size.
             divColumns.style.width=`${cellWidthSize}px`;
             divColumns.style.height=`${cellHeightSize}px`;
 
-            //Hovers each columns and change its color.
-            divColumns.addEventListener("mouseover",(colorColumn)=>{
-                colorColumn.target.style.backgroundColor="red";
+            //Events for drawing on the cells.
+            divColumns.addEventListener("click",(clickCell)=>{
+                clickCell.target.style.backgroundColor = "red";
             });
+
+            divColumns.addEventListener("mousedown",()=>{
+                isDrawing = true;
+            });
+
+            divColumns.addEventListener("mousemove", (event) => {
+                if (isDrawing && event.target.classList.contains("columns")) {
+                  event.target.style.backgroundColor = "red"; // Change color when dragging
+                }
+              });
+
+            divColumns.addEventListener("mouseup", () => {
+                isDrawing = false;
+              });
         }
+
         container.appendChild(divRows);
         divRows.classList.add('rows');
-
     }
 }
+
+
 
 createGrid(gridSize);
     
