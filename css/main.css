@@ -1,16 +1,34 @@
+*,
+*::before,
+*::after{
+	box-sizing: border-box;
+	
+}
+
+body{
+    margin: 0;
+}
+.main-container{
+    display: flex;
+}
+
+
 .content-container{
-    background-color: black;
+    background-color: rgb(44, 36, 181);
+    display: flex;
+    flex-wrap: nowrap;
+    width:500px;
+    height:500px;
 }
 
 .rows{
     display: flex;
-    background-color: gray;
-    border:2px solid black;
-    width: 100%;
-    height: 50px;
+    flex-direction: column;
+    background-color: rgb(128, 128, 128);
+   
 }
 
 .columns{
-    border: 2px solid yellow;
-    width: 50rem;
+    background-color: rgb(255, 255, 255);
+    border: 0.5px solid black;
 }
