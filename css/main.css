@@ -8,17 +8,17 @@
 body{
     margin: 0;
 }
+
 .main-container{
     display: flex;
+    flex-direction: column;
 }
-
-
 .content-container{
     background-color: rgb(44, 36, 181);
     display: flex;
     flex-wrap: nowrap;
-    width:500px;
-    height:500px;
+    width:400px;
+    height:400px;
 }
 
 .rows{
@@ -30,5 +30,5 @@ body{
 
 .columns{
     background-color: rgb(255, 255, 255);
-    border: 0.5px solid black;
+    border: 0.2px solid rgb(85, 86, 84);
 }
