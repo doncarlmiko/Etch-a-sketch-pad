@@ -20,10 +20,23 @@
         <div class="gridInput">
             <form action="/action_page.php">
                 <label for="gridSize">Set size:</label>
-                <input type="number" id="gridNumber" name="gridSizeInput" placeholder="Input grid size">
+                <input type="number" id="gridNumber" name="gridSizeInput" placeholder="Input grid size" value="1" min="1" max="64">
                 <button id ="changeGridSize" type="button">Save</button>
             </form>
         </div>
+    </div>
+
+    <div>
+        <label for="favcolor">Pen</label>
+        <input title="PenColor" type="color" id="penColor" name="favcolor" value="#ff0000">
+        <button type="button">Fill Color</button>
+        <button type="button">Dark shading</button>
+        <button type="button">Lightening</button>
+        <button type="button" id="Pen">Pen</button>
+        <button type="button">Fill</button>
+        <button type="button">Erase</button>
+        <button type="button">Erase all</button>
+
     </div>
     
 </body>
