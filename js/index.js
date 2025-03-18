@@ -2,10 +2,12 @@ const container=document.querySelector('.content-container');
 const gridSize=document.querySelector('#gridNumber');
 const changeGridSize=document.querySelector('#changeGridSize');
 const penColor=document.querySelector('#penColor');
+const backgroundFillColor=document.querySelector('#backgroundFillColor');
 
-const penButton = document.querySelector('#Pen');
 
 const defaultGridSize = 10;
+penColor.value ='black';
+
 
 let isDrawing = false; // Track if the user is holding the mouse button
 
@@ -24,35 +26,11 @@ changeGridSize.addEventListener('click',()=>{
     }
 });
 
-function getPenColor(){
+penColor.addEventListener("input", () => {
+    console.log("Pen color changed to:", penColor.value);
+});
 
-    penButton.addEventListener('click',()=>{
-        return penColor.value;
-        
-    });
-}
-
-function selectGridCell(divColumns){
-
-    //Events for drawing on the cells.
-    divColumns.addEventListener("click",(clickCell)=>{
-        clickCell.target.style.backgroundColor = 'red';
-    });
-
-    divColumns.addEventListener("mousedown",()=>{
-        isDrawing = true;
-    });
-
-    divColumns.addEventListener("mousemove", (event) => {
-        if (isDrawing && event.target.classList.contains("columns")) {
-          event.target.style.backgroundColor = 'red'; // Change color when dragging
-        }
-      });
-
-    divColumns.addEventListener("mouseup", () => {
-        isDrawing = false;
-      });
-}
+backgroundFillColor.addEventListener("input",()=>fillColor());
 
 
 function createGrid(size){
@@ -86,6 +64,49 @@ function createGrid(size){
     }
 }
 
-createGrid(defaultGridSize);
+function selectGridCell(divColumns){
+    //Events for drawing on the cells.
     
+    divColumns.addEventListener("click",(clickCell)=>{
+        clickCell.target.style.backgroundColor = penColor.value;
+       
+        storePenColor(penColor.value);
+    });
+
+    divColumns.addEventListener("mousedown",()=>{
+        isDrawing = true;
+    });
+
+    divColumns.addEventListener("mousemove", (event) => {
+        if (isDrawing && event.target.classList.contains("columns")) {
+          event.target.style.backgroundColor = penColor.value; // Change color when dragging
+          storePenColor(penColor.value);
+        }
+      });
+
+    divColumns.addEventListener("mouseup", () => {
+        isDrawing = false;
+      });
+}
+
+let penColorHistory=[];
+//Store the pen color everytime the user changes it.
+function storePenColor(penColor){
+    if(!penColorHistory.includes(penColor)){
+        penColorHistory.push(penColor);
+    }
+    
+    console.log(penColorHistory);
+}
+
+//Change the background of the grid cells.
+function fillColor(){
+    const fillAllCells= document.querySelectorAll('.columns');
+    fillAllCells.forEach((fillCell)=>{
+        fillCell.style.backgroundColor=backgroundFillColor.value;
+    })
+}
+
+createGrid(defaultGridSize);
+
 
