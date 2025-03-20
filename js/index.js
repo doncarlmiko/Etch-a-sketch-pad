@@ -1,112 +1,133 @@
-const container=document.querySelector('.content-container');
-const gridSize=document.querySelector('#gridNumber');
-const changeGridSize=document.querySelector('#changeGridSize');
-const penColor=document.querySelector('#penColor');
-const backgroundFillColor=document.querySelector('#backgroundFillColor');
-
+const container = document.querySelector('.content-container');
+const gridSize = document.querySelector('#gridNumber');
+const changeGridSize = document.querySelector('#changeGridSize');
+const penColor = document.querySelector('#penColor');
+const backgroundFillColor = document.querySelector('#backgroundFillColor');
 
 const defaultGridSize = 10;
-penColor.value ='black';
-
+penColor.value = '#000000';
 
 let isDrawing = false; // Track if the user is holding the mouse button
+let backgroundGridcolors = [];
+let penColorHistory = []; // Stores manually selected colors
 
-//Displays the number of grids based on the user input
-changeGridSize.addEventListener('click',()=>{
-    if(gridSize.value <=0){
+// Displays the number of grids based on user input
+changeGridSize.addEventListener('click', () => {
+    if (gridSize.value <= 0) {
         alert('Minimum of one grid!');
-        gridSize.value='1';
-    }
-    else if(gridSize.value <=64){
-        createGrid(gridSize.value,penColor.value);
-    }
-    else{
-        alert('Maximum of 64 grid!');
-        gridSize.value='1';
+        gridSize.value = '1';
+    } else if (gridSize.value <= 64) {
+        createGrid(gridSize.value);
+    } else {
+        alert('Maximum of 64 grids!');
+        gridSize.value = '1';
     }
 });
 
-penColor.addEventListener("input", () => {
-    console.log("Pen color changed to:", penColor.value);
-});
+// Listen for background fill color change
+backgroundFillColor.addEventListener("input", () => fillColor());
 
-backgroundFillColor.addEventListener("input",()=>fillColor());
+// Function to create grid
+function createGrid(size) {
+    container.textContent = ""; // Clears the container
+    backgroundGridcolors = []; // Reset color storage
 
+    const cellSize = 500 / size; // Adjust cell size dynamically
 
-function createGrid(size){
-    //Clears the container to display the new number of grids.
-    container.textContent="";
-    let counter;
-    let counter2;
-    
-    // Adjust cell size
-    const cellWidthSize = 500 / size; 
-    const cellHeightSize = 500/size;
+    for (let row = 0; row < size; row++) {
+        const divRows = document.createElement('div');
+        divRows.classList.add('rows');
 
-    for(counter=0; counter<size; counter++){
-        const divRows=document.createElement('div');
-        
-        for(counter2=0; counter2<size; counter2++){
-            const divColumns=document.createElement('div');
-            
-            divRows.appendChild(divColumns);
+        for (let col = 0; col < size; col++) {
+            const divColumns = document.createElement('div');
             divColumns.classList.add('columns');
+            divColumns.style.width = `${cellSize}px`;
+            divColumns.style.height = `${cellSize}px`;
+            divRows.appendChild(divColumns);
 
-            //Adjust cell size depending on the grid size.
-            divColumns.style.width=`${cellWidthSize}px`;
-            divColumns.style.height=`${cellHeightSize}px`;
-            
             selectGridCell(divColumns);
         }
 
         container.appendChild(divRows);
-        divRows.classList.add('rows');
     }
+
+    getGridColors(); // Store initial colors after grid creation
 }
 
-function selectGridCell(divColumns){
-    //Events for drawing on the cells.
-    
-    divColumns.addEventListener("click",(clickCell)=>{
-        clickCell.target.style.backgroundColor = penColor.value;
-       
+// Function to handle cell selection
+function selectGridCell(divColumns) {
+    divColumns.addEventListener("click", (event) => {
+        event.target.style.backgroundColor = penColor.value;
         storePenColor(penColor.value);
+        getGridColors();
     });
 
-    divColumns.addEventListener("mousedown",()=>{
+    divColumns.addEventListener("mousedown", () => {
         isDrawing = true;
     });
 
     divColumns.addEventListener("mousemove", (event) => {
         if (isDrawing && event.target.classList.contains("columns")) {
-          event.target.style.backgroundColor = penColor.value; // Change color when dragging
-          storePenColor(penColor.value);
+            event.target.style.backgroundColor = penColor.value;
+            storePenColor(penColor.value);
+            getGridColors();
         }
-      });
+    });
 
     divColumns.addEventListener("mouseup", () => {
         isDrawing = false;
-      });
+    });
 }
 
-let penColorHistory=[];
-//Store the pen color everytime the user changes it.
-function storePenColor(penColor){
-    if(!penColorHistory.includes(penColor)){
-        penColorHistory.push(penColor);
+// Store manually selected pen colors
+function storePenColor(color) {
+    if (!penColorHistory.includes(color)) {
+        penColorHistory.push(color);
     }
-    
-    console.log(penColorHistory);
+    console.log("Pen Color History:", penColorHistory);
 }
 
-//Change the background of the grid cells.
-function fillColor(){
-    const fillAllCells= document.querySelectorAll('.columns');
-    fillAllCells.forEach((fillCell)=>{
-        fillCell.style.backgroundColor=backgroundFillColor.value;
-    })
+// Convert RGB color format to Hex format
+function rgbToHex(rgb) {
+    const rgbValues = rgb.match(/\d+/g); // Extract numbers
+    if (!rgbValues) return rgb; // Return as is if invalid
+
+    return `#${rgbValues.map(x => {
+        const hex = parseInt(x).toString(16); // Convert to hex
+        return hex.length === 1 ? "0" + hex : hex; // Ensure two digits
+    }).join('')}`;
+}
+
+// Store grid cell background colors in hex format
+function getGridColors() {
+    backgroundGridcolors = []; // Reset storage
+
+    [...document.querySelectorAll(".rows")].flatMap(row =>
+        [...row.children].forEach(cell => {
+            const bgColor = window.getComputedStyle(cell).backgroundColor;
+            backgroundGridcolors.push(rgbToHex(bgColor)); // Store in hex format
+        })
+    );
+
+    console.log("Stored Colors:", backgroundGridcolors);
+}
+
+// Change the background of uncolored grid cells
+function fillColor() {
+    const fillAllCells = document.querySelectorAll('.columns');
+
+    fillAllCells.forEach((fillCell, index) => {
+        const currentColor = window.getComputedStyle(fillCell).backgroundColor;
+        const hexColor = rgbToHex(currentColor); // Convert to hex for comparison
+
+        // If the cell was NOT manually colored, update it
+        if (!penColorHistory.includes(hexColor)) {
+            fillCell.style.backgroundColor = backgroundFillColor.value;
+            backgroundGridcolors[index] = backgroundFillColor.value; // Update stored colors
+        }
+    });
+
+    console.log("Updated Background Colors:", backgroundGridcolors);
 }
 
 createGrid(defaultGridSize);
-
-

@@ -16,14 +16,13 @@ body{
 .content-container{
     background-color: rgb(44, 36, 181);
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width:400px;
     height:400px;
 }
 
 .rows{
     display: flex;
-    flex-direction: column;
     background-color: rgb(128, 128, 128);
    
 }
