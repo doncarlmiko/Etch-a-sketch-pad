@@ -44,46 +44,59 @@ function createGrid(size) {
             divColumns.style.width = `${cellSize}px`;
             divColumns.style.height = `${cellSize}px`;
             divRows.appendChild(divColumns);
-
-            selectGridCell(divColumns);
+            
+            
         }
 
         container.appendChild(divRows);
     }
-
+    selectGridCell();
     getGridColors(); // Store initial colors after grid creation
 }
 
 // Function to handle cell selection
-function selectGridCell(divColumns) {
-    divColumns.addEventListener("click", (event) => {
-        event.target.style.backgroundColor = penColor.value;
-        storePenColor(penColor.value);
-        getGridColors();
-    });
+function selectGridCell() {
+    const gridColumns=document.querySelectorAll('.columns');
 
-    divColumns.addEventListener("mousedown", () => {
+    gridColumns.forEach((cell,index)=>{
+        cell.addEventListener("click", (event) => {
+            event.target.style.backgroundColor = penColor.value;
+
+            penColorCell(cell,index,penColor.value);
+            getGridColors();
+        });
+    })
+
+    gridColumns.forEach((cell)=>{
+        cell.addEventListener("mousedown", () => {
         isDrawing = true;
     });
+    });
+    
+    gridColumns.forEach((cell,index)=>{
+        cell.addEventListener("mousemove", (event) => {
 
-    divColumns.addEventListener("mousemove", (event) => {
-        if (isDrawing && event.target.classList.contains("columns")) {
-            event.target.style.backgroundColor = penColor.value;
-            storePenColor(penColor.value);
-            getGridColors();
-        }
+            if (isDrawing && event.target.classList.contains("columns")) {
+                event.target.style.backgroundColor = penColor.value;
+
+                penColorCell(cell,index,penColor.value);
+                getGridColors();
+            }
+        });
     });
 
-    divColumns.addEventListener("mouseup", () => {
-        isDrawing = false;
+    gridColumns.forEach((cell)=>{
+        cell.addEventListener("mouseup", () => {
+            isDrawing = false;
+        });    
     });
 }
 
 // Store manually selected pen colors
-function storePenColor(color) {
-    if (!penColorHistory.includes(color)) {
-        penColorHistory.push(color);
-    }
+function penColorCell(cell,index,penColor) {
+        penColorHistory.push(penColor);
+        cell.style.backgroundColor = penColor;
+        manuallyColorCell(index);
     console.log("Pen Color History:", penColorHistory);
 }
 
@@ -121,13 +134,24 @@ function fillColor() {
         const hexColor = rgbToHex(currentColor); // Convert to hex for comparison
 
         // If the cell was NOT manually colored, update it
-        if (!penColorHistory.includes(hexColor)) {
+        if (!manuallyColoredCells.includes(index)){
             fillCell.style.backgroundColor = backgroundFillColor.value;
             backgroundGridcolors[index] = backgroundFillColor.value; // Update stored colors
+            
         }
+            console.log("Pen Color History:", penColorHistory);
+            console.log("Current Cell Color:", hexColor);
+            console.log("Condition Check:", !penColorHistory.includes(hexColor));
     });
 
     console.log("Updated Background Colors:", backgroundGridcolors);
 }
 
+let manuallyColoredCells = []; // Array to track manually colored cells
+
+function manuallyColorCell(index) {
+    if (!manuallyColoredCells.includes(index)) {
+        manuallyColoredCells.push(index); // Store the index
+    }
+}
 createGrid(defaultGridSize);
