@@ -3,6 +3,7 @@ const gridSize = document.querySelector('#gridNumber');
 const changeGridSize = document.querySelector('#changeGridSize');
 const penColor = document.querySelector('#penColor');
 const backgroundFillColor = document.querySelector('#backgroundFillColor');
+const FillColorButton = document.querySelector('#Fill');
 
 const defaultGridSize = 10;
 penColor.value = '#000000';
@@ -25,12 +26,13 @@ changeGridSize.addEventListener('click', () => {
 });
 
 // Listen for background fill color change
-backgroundFillColor.addEventListener("input", () => fillColor());
+FillColorButton.addEventListener("click", fillColor);
 
 // Function to create grid
 function createGrid(size) {
     container.textContent = ""; // Clears the container
     backgroundGridcolors = []; // Reset color storage
+    manuallyColoredCells = []; // Reset manually colored cells
 
     const cellSize = 500 / size; // Adjust cell size dynamically
 
@@ -63,33 +65,29 @@ function selectGridCell() {
             event.target.style.backgroundColor = penColor.value;
 
             penColorCell(cell,index,penColor.value);
-            getGridColors();
+            //getGridColors();
         });
-    })
 
-    gridColumns.forEach((cell)=>{
         cell.addEventListener("mousedown", () => {
-        isDrawing = true;
-    });
-    });
-    
-    gridColumns.forEach((cell,index)=>{
+            isDrawing = true;
+        });
+
         cell.addEventListener("mousemove", (event) => {
 
             if (isDrawing && event.target.classList.contains("columns")) {
                 event.target.style.backgroundColor = penColor.value;
 
                 penColorCell(cell,index,penColor.value);
-                getGridColors();
+                //getGridColors();
             }
         });
-    });
 
-    gridColumns.forEach((cell)=>{
         cell.addEventListener("mouseup", () => {
             isDrawing = false;
-        });    
+        }); 
+        
     });
+    getGridColors();
 }
 
 // Store manually selected pen colors
