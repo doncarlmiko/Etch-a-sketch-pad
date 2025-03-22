@@ -3,7 +3,10 @@ const gridSize = document.querySelector('#gridNumber');
 const changeGridSize = document.querySelector('#changeGridSize');
 const penColor = document.querySelector('#penColor');
 const backgroundFillColor = document.querySelector('#backgroundFillColor');
+const Pen = document.querySelector('#Pen');
 const FillColorButton = document.querySelector('#Fill');
+const EraseCellButton = document.querySelector('#EraseCell');
+const eraseAllCellButton=document.querySelector('#eraseAllCell');
 
 const defaultGridSize = 10;
 penColor.value = '#000000';
@@ -26,7 +29,12 @@ changeGridSize.addEventListener('click', () => {
 });
 
 // Listen for background fill color change
+Pen.addEventListener('click',selectGridCell);
 FillColorButton.addEventListener("click", fillColor);
+
+EraseCellButton.addEventListener("click", EraseCell);
+
+//eraseAllCellButton.addEventListener('click',eraseAllCell);
 
 // Function to create grid
 function createGrid(size) {
@@ -46,13 +54,10 @@ function createGrid(size) {
             divColumns.style.width = `${cellSize}px`;
             divColumns.style.height = `${cellSize}px`;
             divRows.appendChild(divColumns);
-            
-            
         }
 
         container.appendChild(divRows);
     }
-    selectGridCell();
     getGridColors(); // Store initial colors after grid creation
 }
 
@@ -65,7 +70,6 @@ function selectGridCell() {
             event.target.style.backgroundColor = penColor.value;
 
             penColorCell(cell,index,penColor.value);
-            //getGridColors();
         });
 
         cell.addEventListener("mousedown", () => {
@@ -78,7 +82,6 @@ function selectGridCell() {
                 event.target.style.backgroundColor = penColor.value;
 
                 penColorCell(cell,index,penColor.value);
-                //getGridColors();
             }
         });
 
@@ -152,4 +155,34 @@ function manuallyColorCell(index) {
         manuallyColoredCells.push(index); // Store the index
     }
 }
+
+function EraseCell(){
+    const deleteCell=document.querySelectorAll('.columns');
+    deleteCell.forEach((cell,index)=>{
+        cell.addEventListener('click',()=>{
+            
+            const manuallyColoredIndex = manuallyColoredCells.indexOf(index);
+
+            if (manuallyColoredIndex != -1){
+                
+                manuallyColoredCells.splice(manuallyColoredIndex,1);
+                cell.style.backgroundColor = backgroundFillColor.value;
+                backgroundGridcolors[index] = backgroundFillColor.value; // Update stored colors
+            }
+        });
+    });
+}
+/*function eraseAllCell(){
+    const eraseAll = document.querySelectorAll('.columns');
+    eraseAll.forEach((erase)=>{
+        erase.style.backgroundColor=backgroundFillColor.value;
+    });
+
+}*/
+
+
+
+
+
 createGrid(defaultGridSize);
+
