@@ -34,7 +34,7 @@ FillColorButton.addEventListener("click", fillColor);
 
 EraseCellButton.addEventListener("click", EraseCell);
 
-//eraseAllCellButton.addEventListener('click',eraseAllCell);
+eraseAllCellButton.addEventListener('click',eraseAllCell);
 
 // Function to create grid
 function createGrid(size) {
@@ -172,17 +172,20 @@ function EraseCell(){
         });
     });
 }
-/*function eraseAllCell(){
+function eraseAllCell(){
     const eraseAll = document.querySelectorAll('.columns');
-    eraseAll.forEach((erase)=>{
-        erase.style.backgroundColor=backgroundFillColor.value;
+    eraseAll.forEach((eraseCell,index)=>{
+        eraseCell.style.backgroundColor=backgroundGridColors[backgroundGridColors.length-1];
+        
+        const eraseColoredIndex = manuallyColoredCells.indexOf(index);
+
+        if (eraseColoredIndex != -1){
+            manuallyColoredCells.splice(eraseColoredIndex,1);
+        }
+
+        backgroundGridColors.splice(index,backgroundGridColors.length-1);
     });
-
-}*/
-
-
-
-
+}
 
 createGrid(defaultGridSize);
 
