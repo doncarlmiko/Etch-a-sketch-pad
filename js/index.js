@@ -12,7 +12,7 @@ const defaultGridSize = 10;
 penColor.value = '#000000';
 
 let isDrawing = false; // Track if the user is holding the mouse button
-let backgroundGridcolors = [];
+let backgroundGridColors = [];
 let penColorHistory = []; // Stores manually selected colors
 
 // Displays the number of grids based on user input
@@ -39,7 +39,7 @@ EraseCellButton.addEventListener("click", EraseCell);
 // Function to create grid
 function createGrid(size) {
     container.textContent = ""; // Clears the container
-    backgroundGridcolors = []; // Reset color storage
+    backgroundGridColors = []; // Reset color storage
     manuallyColoredCells = []; // Reset manually colored cells
 
     const cellSize = 500 / size; // Adjust cell size dynamically
@@ -114,16 +114,16 @@ function rgbToHex(rgb) {
 
 // Store grid cell background colors in hex format
 function getGridColors() {
-    backgroundGridcolors = []; // Reset storage
+    backgroundGridColors = []; // Reset storage
 
     [...document.querySelectorAll(".rows")].flatMap(row =>
         [...row.children].forEach(cell => {
             const bgColor = window.getComputedStyle(cell).backgroundColor;
-            backgroundGridcolors.push(rgbToHex(bgColor)); // Store in hex format
+            backgroundGridColors.push(rgbToHex(bgColor)); // Store in hex format
         })
     );
 
-    console.log("Stored Colors:", backgroundGridcolors);
+    console.log("Stored Colors:", backgroundGridColors);
 }
 
 // Change the background of uncolored grid cells
@@ -137,7 +137,7 @@ function fillColor() {
         // If the cell was NOT manually colored, update it
         if (!manuallyColoredCells.includes(index)){
             fillCell.style.backgroundColor = backgroundFillColor.value;
-            backgroundGridcolors[index] = backgroundFillColor.value; // Update stored colors
+            backgroundGridColors[index] = backgroundFillColor.value; // Update stored colors
             
         }
             console.log("Pen Color History:", penColorHistory);
@@ -145,7 +145,7 @@ function fillColor() {
             console.log("Condition Check:", !penColorHistory.includes(hexColor));
     });
 
-    console.log("Updated Background Colors:", backgroundGridcolors);
+    console.log("Updated Background Colors:", backgroundGridColors);
 }
 
 let manuallyColoredCells = []; // Array to track manually colored cells
@@ -166,8 +166,8 @@ function EraseCell(){
             if (manuallyColoredIndex != -1){
                 
                 manuallyColoredCells.splice(manuallyColoredIndex,1);
-                cell.style.backgroundColor = backgroundFillColor.value;
-                backgroundGridcolors[index] = backgroundFillColor.value; // Update stored colors
+                cell.style.backgroundColor = backgroundGridColors[backgroundGridColors.length-1];
+                backgroundGridColors[index] = backgroundFillColor.value; // Update stored colors
             }
         });
     });
