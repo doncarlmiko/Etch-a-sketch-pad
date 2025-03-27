@@ -5,8 +5,10 @@ const penColor = document.querySelector('#penColor');
 const backgroundFillColor = document.querySelector('#backgroundFillColor');
 const Pen = document.querySelector('#Pen');
 const FillColorButton = document.querySelector('#Fill');
-const EraseCellButton = document.querySelector('#EraseCell');
+const eraseCellButton = document.querySelector('#EraseCell');
 const eraseAllCellButton=document.querySelector('#eraseAllCell');
+const darkShadingButton=document.querySelector('#darkShadingCell');
+
 
 const defaultGridSize = 10;
 penColor.value = '#000000';
@@ -28,13 +30,31 @@ changeGridSize.addEventListener('click', () => {
     }
 });
 
-// Listen for background fill color change
-Pen.addEventListener('click',selectGridCell);
-FillColorButton.addEventListener("click", fillColor);
+let isPenDisabled = false; // Pen is working by default
+Pen.addEventListener('click',()=>{
+    isPenDisabled = false;
+    selectGridCell();
+});
 
-EraseCellButton.addEventListener("click", EraseCell);
+// Listen for background fill color change
+FillColorButton.addEventListener("click", ()=>{
+    isPenDisabled = true;
+    fillColor();
+});
+
+eraseCellButton.addEventListener("click", eraseCell);
 
 eraseAllCellButton.addEventListener('click',eraseAllCell);
+
+/*
+let darkShadeEvent; //get the dark shading button event.
+let darkColor='red';
+darkShadingButton.addEventListener('click', (e) => {
+    darkShadeEvent = e;
+    //console.log(darkShadeEvent);
+    selectGridCell(); // Call your function separately
+});*/
+
 
 // Function to create grid
 function createGrid(size) {
@@ -65,31 +85,34 @@ function createGrid(size) {
 function selectGridCell() {
     const gridColumns=document.querySelectorAll('.columns');
 
-    gridColumns.forEach((cell,index)=>{
-        cell.addEventListener("click", (event) => {
-            event.target.style.backgroundColor = penColor.value;
+        gridColumns.forEach((cell,index)=>{
+            cell.addEventListener("click", (event) => {
+                    if (isPenDisabled) return;
+                    event.target.style.backgroundColor = penColor.value;
+                    penColorCell(cell,index,penColor.value);
+            });
+    
+           cell.addEventListener("mousedown", () => {
+                if (isPenDisabled) return;
+                isDrawing = true;
+            });
+    
+            cell.addEventListener("mousemove", (event) => {
+                if (isPenDisabled) return;
 
-            penColorCell(cell,index,penColor.value);
+                if (isDrawing && event.target.classList.contains("columns")) {
+                    event.target.style.backgroundColor = penColor.value;
+    
+                    penColorCell(cell,index,penColor.value);
+                }
+            });
+    
+            cell.addEventListener("mouseup", () => {
+                if (isPenDisabled) return;
+                isDrawing = false;
+            });
+            
         });
-
-        cell.addEventListener("mousedown", () => {
-            isDrawing = true;
-        });
-
-        cell.addEventListener("mousemove", (event) => {
-
-            if (isDrawing && event.target.classList.contains("columns")) {
-                event.target.style.backgroundColor = penColor.value;
-
-                penColorCell(cell,index,penColor.value);
-            }
-        });
-
-        cell.addEventListener("mouseup", () => {
-            isDrawing = false;
-        }); 
-        
-    });
     getGridColors();
 }
 
@@ -156,7 +179,7 @@ function manuallyColorCell(index) {
     }
 }
 
-function EraseCell(){
+function eraseCell(){
     const deleteCell=document.querySelectorAll('.columns');
     deleteCell.forEach((cell,index)=>{
         cell.addEventListener('click',()=>{
@@ -166,12 +189,15 @@ function EraseCell(){
             if (manuallyColoredIndex != -1){
                 
                 manuallyColoredCells.splice(manuallyColoredIndex,1);
+                penColorHistory.splice(manuallyColoredIndex,1);
+
                 cell.style.backgroundColor = backgroundGridColors[backgroundGridColors.length-1];
                 backgroundGridColors[index] = backgroundFillColor.value; // Update stored colors
             }
         });
     });
 }
+
 function eraseAllCell(){
     const eraseAll = document.querySelectorAll('.columns');
     eraseAll.forEach((eraseCell,index)=>{
@@ -181,11 +207,22 @@ function eraseAllCell(){
 
         if (eraseColoredIndex != -1){
             manuallyColoredCells.splice(eraseColoredIndex,1);
+            penColorHistory.splice(eraseColoredIndex,1);
         }
 
-        backgroundGridColors.splice(index,backgroundGridColors.length-1);
+       /* backgroundGridColors.splice(index,backgroundGridColors.length-1);*/
     });
 }
+
+/*function darkShading(){
+    if(darkShadeEvent && darkShadeEvent.type === 'click'){
+               
+                event.target.style.backgroundColor = darkColor;
+                penColorCell(cell,index,darkColor);
+                //darkShading(cell,index,darkColor);
+                darkShadeEvent=null;
+            }
+}*/
 
 createGrid(defaultGridSize);
 
