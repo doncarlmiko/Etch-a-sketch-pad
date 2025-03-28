@@ -13,7 +13,7 @@ const darkShadingButton=document.querySelector('#darkShadingCell');
 const defaultGridSize = 10;
 penColor.value = '#000000';
 
-let isDrawing = false; // Track if the user is holding the mouse button
+
 let backgroundGridColors = [];
 let penColorHistory = []; // Stores manually selected colors
 
@@ -33,12 +33,14 @@ changeGridSize.addEventListener('click', () => {
 let isPenDisabled = false; // Pen is working by default
 Pen.addEventListener('click',()=>{
     isPenDisabled = false;
+    isDarkShade=true; // locks the Shading button.
     selectGridCell();
 });
 
 // Listen for background fill color change
 FillColorButton.addEventListener("click", ()=>{
     isPenDisabled = true;
+    isDarkShade=true; // locks the Shading button.
     fillColor();
 });
 
@@ -46,15 +48,12 @@ eraseCellButton.addEventListener("click", eraseCell);
 
 eraseAllCellButton.addEventListener('click',eraseAllCell);
 
-/*
-let darkShadeEvent; //get the dark shading button event.
-let darkColor='red';
-darkShadingButton.addEventListener('click', (e) => {
-    darkShadeEvent = e;
-    //console.log(darkShadeEvent);
-    selectGridCell(); // Call your function separately
-});*/
-
+let isDarkShade=false;
+darkShadingButton.addEventListener('click', ()=>{
+    isPenDisabled = true; //locks the Pen button.
+    isDarkShade=false; // unlock shading button when clicked again.
+    darkShading();
+});
 
 // Function to create grid
 function createGrid(size) {
@@ -82,6 +81,7 @@ function createGrid(size) {
 }
 
 // Function to handle cell selection
+let isDrawing = false;
 function selectGridCell() {
     const gridColumns=document.querySelectorAll('.columns');
 
@@ -89,12 +89,14 @@ function selectGridCell() {
             cell.addEventListener("click", (event) => {
                     if (isPenDisabled) return;
                     event.target.style.backgroundColor = penColor.value;
+
                     penColorCell(cell,index,penColor.value);
             });
     
            cell.addEventListener("mousedown", () => {
                 if (isPenDisabled) return;
                 isDrawing = true;
+                
             });
     
             cell.addEventListener("mousemove", (event) => {
@@ -191,6 +193,7 @@ function eraseCell(){
                 manuallyColoredCells.splice(manuallyColoredIndex,1);
                 penColorHistory.splice(manuallyColoredIndex,1);
 
+                cell.style.opacity='1';
                 cell.style.backgroundColor = backgroundGridColors[backgroundGridColors.length-1];
                 backgroundGridColors[index] = backgroundFillColor.value; // Update stored colors
             }
@@ -208,21 +211,52 @@ function eraseAllCell(){
         if (eraseColoredIndex != -1){
             manuallyColoredCells.splice(eraseColoredIndex,1);
             penColorHistory.splice(eraseColoredIndex,1);
+           
         }
-
+        eraseCell.style.opacity='1';
        /* backgroundGridColors.splice(index,backgroundGridColors.length-1);*/
     });
 }
 
-/*function darkShading(){
-    if(darkShadeEvent && darkShadeEvent.type === 'click'){
-               
-                event.target.style.backgroundColor = darkColor;
-                penColorCell(cell,index,darkColor);
-                //darkShading(cell,index,darkColor);
-                darkShadeEvent=null;
+let isDrawingDarkShade = false;
+function darkShading(){
+    const darkShadeColor = document.querySelectorAll('.columns');
+    darkShadeColor.forEach((cell, index)=>{
+
+        cell.addEventListener('click',(event)=>{
+            if(isDarkShade) return;
+
+            let currentOpacity = parseFloat(event.target.style.opacity) || 1; // Default opacity is 1 (fully visible)
+                
+            if (currentOpacity > 0) {
+                event.target.style.opacity = (currentOpacity - 0.1).toFixed(2); // Reduce opacity gradually
             }
-}*/
+        });
+
+        cell.addEventListener("mousedown", () => {
+            if(isDarkShade) return;
+            isDrawingDarkShade = true;
+        });
+
+        cell.addEventListener("mousemove", (event) => {
+            if(isDarkShade) return;
+
+            if (isDrawingDarkShade && event.target.classList.contains("columns")) {
+                let currentOpacity = parseFloat(event.target.style.opacity) || 1;
+
+                if (currentOpacity > 0) {
+                    event.target.style.opacity = (currentOpacity - 0.1).toFixed(2); // Reduce opacity gradually
+                }
+            }
+        });
+
+        cell.addEventListener("mouseup", () => {
+            if(isDarkShade) return;
+            isDrawingDarkShade =false;
+        });
+
+    });
+}
 
 createGrid(defaultGridSize);
 
