@@ -261,12 +261,11 @@ function darkShading(){
 
     });
 
-    function darkenCell(cell){
+    function darkenCell(cell,index){
         let currentColor=window.getComputedStyle(cell).backgroundColor;
         let darkerColor = darkenRGB(currentColor,5);
         cell.style.backgroundColor= darkerColor;
-        //penColorCell(cell,index,rgbToHex(darkerColor));
-        getGridColors(); // Store initial colors after grid creation
+        penColorCell(cell,index,rgbToHex(darkerColor));
     }
 
     function darkenRGB(rgb,percent){
