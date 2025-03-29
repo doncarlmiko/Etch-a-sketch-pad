@@ -14,7 +14,7 @@ const defaultGridSize = 10;
 penColor.value = '#000000';
 
 
-let backgroundGridColors = [];
+let backgroundGridColors = []; //Stores the background color of the grid.
 let penColorHistory = []; // Stores manually selected colors
 
 // Displays the number of grids based on user input
@@ -44,12 +44,22 @@ FillColorButton.addEventListener("click", ()=>{
     fillColor();
 });
 
-eraseCellButton.addEventListener("click", eraseCell);
+let isEraseDisabled=false;
+eraseCellButton.addEventListener("click", ()=>{
+    isEraseDisabled=false; //unlocks the Erase button.
+    isPenDisabled = true; //locks the Pen button.
+    isDarkShade=true; // locks the Dark Shading button.
+    eraseCell();
+});
 
-eraseAllCellButton.addEventListener('click',eraseAllCell);
+eraseAllCellButton.addEventListener('click',()=>{
+    isPenDisabled = true;
+    eraseAllCell();
+});
 
 let isDarkShade=false;
 darkShadingButton.addEventListener('click', ()=>{
+    isEraseDisabled=true; //Locks the Erase button.
     isPenDisabled = true; //locks the Pen button.
     isDarkShade=false; // unlock shading button when clicked again.
     darkShading();
@@ -85,6 +95,7 @@ let isDrawing = false;
 function selectGridCell() {
     const gridColumns=document.querySelectorAll('.columns');
 
+        //Button events for Pen button.
         gridColumns.forEach((cell,index)=>{
             cell.addEventListener("click", (event) => {
                     if (isPenDisabled) return;
@@ -120,9 +131,9 @@ function selectGridCell() {
 
 // Store manually selected pen colors
 function penColorCell(cell,index,penColor) {
-        penColorHistory.push(penColor);
-        cell.style.backgroundColor = penColor;
-        manuallyColorCell(index);
+    penColorHistory.push(penColor);
+    cell.style.backgroundColor = penColor;
+    manuallyColorCell(index);
     console.log("Pen Color History:", penColorHistory);
 }
 
@@ -139,7 +150,7 @@ function rgbToHex(rgb) {
 
 // Store grid cell background colors in hex format
 function getGridColors() {
-    backgroundGridColors = []; // Reset storage
+   backgroundGridColors = []; // Reset storage
 
     [...document.querySelectorAll(".rows")].flatMap(row =>
         [...row.children].forEach(cell => {
@@ -163,7 +174,6 @@ function fillColor() {
         if (!manuallyColoredCells.includes(index)){
             fillCell.style.backgroundColor = backgroundFillColor.value;
             backgroundGridColors[index] = backgroundFillColor.value; // Update stored colors
-            
         }
             console.log("Pen Color History:", penColorHistory);
             console.log("Current Cell Color:", hexColor);
@@ -185,11 +195,13 @@ function eraseCell(){
     const deleteCell=document.querySelectorAll('.columns');
     deleteCell.forEach((cell,index)=>{
         cell.addEventListener('click',()=>{
-            
+            if(isEraseDisabled) return;
+
             const manuallyColoredIndex = manuallyColoredCells.indexOf(index);
 
+            //Check if the manuallyColoredIndex is greater than -1.
             if (manuallyColoredIndex != -1){
-                
+                //Remove the index of the selected cell.
                 manuallyColoredCells.splice(manuallyColoredIndex,1);
                 penColorHistory.splice(manuallyColoredIndex,1);
 
@@ -214,9 +226,9 @@ function eraseAllCell(){
            
         }
         eraseCell.style.opacity='1';
-       /* backgroundGridColors.splice(index,backgroundGridColors.length-1);*/
     });
 }
+
 
 let isDrawingDarkShade = false;
 function darkShading(){
@@ -225,12 +237,8 @@ function darkShading(){
 
         cell.addEventListener('click',(event)=>{
             if(isDarkShade) return;
-
-            let currentOpacity = parseFloat(event.target.style.opacity) || 1; // Default opacity is 1 (fully visible)
-                
-            if (currentOpacity > 0) {
-                event.target.style.opacity = (currentOpacity - 0.1).toFixed(2); // Reduce opacity gradually
-            }
+            darkenCell(event.target,index);
+            
         });
 
         cell.addEventListener("mousedown", () => {
@@ -240,13 +248,9 @@ function darkShading(){
 
         cell.addEventListener("mousemove", (event) => {
             if(isDarkShade) return;
-
+            
             if (isDrawingDarkShade && event.target.classList.contains("columns")) {
-                let currentOpacity = parseFloat(event.target.style.opacity) || 1;
-
-                if (currentOpacity > 0) {
-                    event.target.style.opacity = (currentOpacity - 0.1).toFixed(2); // Reduce opacity gradually
-                }
+                darkenCell(event.target, index);
             }
         });
 
@@ -256,6 +260,26 @@ function darkShading(){
         });
 
     });
+
+    function darkenCell(cell){
+        let currentColor=window.getComputedStyle(cell).backgroundColor;
+        let darkerColor = darkenRGB(currentColor,5);
+        cell.style.backgroundColor= darkerColor;
+        //penColorCell(cell,index,rgbToHex(darkerColor));
+        getGridColors(); // Store initial colors after grid creation
+    }
+
+    function darkenRGB(rgb,percent){
+        const rgbValues=rgb.match(/\d+/g); //regex pattern in finding numeric value in rgb.
+        if (!rgbValues) return rgb;
+
+        //Conver RGB values to integers and darkens the color.
+        let r = Math.max(0, parseInt(rgbValues[0]) - (255*percent / 100)); 
+        let g = Math.max(0, parseInt(rgbValues[1]) - (255*percent / 100));
+        let b = Math.max(0, parseInt(rgbValues[2]) - (255*percent / 100));
+        
+        return `rgb(${r}, ${g}, ${b})`;
+    }
 }
 
 createGrid(defaultGridSize);
