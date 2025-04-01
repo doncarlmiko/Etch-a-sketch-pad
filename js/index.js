@@ -216,14 +216,14 @@ function eraseCell(){
 function eraseAllCell(){
     const eraseAll = document.querySelectorAll('.columns');
     eraseAll.forEach((eraseCell,index)=>{
-        eraseCell.style.backgroundColor=backgroundGridColors[backgroundGridColors.length-1];
+        //eraseCell.style.backgroundColor=backgroundGridColors[backgroundGridColors.length-1];
         
         const eraseColoredIndex = manuallyColoredCells.indexOf(index);
 
         if (eraseColoredIndex != -1){
             manuallyColoredCells.splice(eraseColoredIndex,1);
             penColorHistory.splice(eraseColoredIndex,1);
-           
+            eraseCell.style.backgroundColor=backgroundGridColors[backgroundGridColors.length-1];
         }
         eraseCell.style.opacity='1';
     });
