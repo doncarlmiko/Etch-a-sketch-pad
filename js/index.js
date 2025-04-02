@@ -261,6 +261,7 @@ function darkShading(){
 
     });
 
+    //a function that darkens the cell.
     function darkenCell(cell,index){
         let currentColor=window.getComputedStyle(cell).backgroundColor;
         let darkerColor = darkenRGB(currentColor,5);
@@ -268,6 +269,7 @@ function darkShading(){
         penColorCell(cell,index,rgbToHex(darkerColor));
     }
 
+    
     function darkenRGB(rgb,percent){
         const rgbValues=rgb.match(/\d+/g); //regex pattern in finding numeric value in rgb.
         if (!rgbValues) return rgb;
