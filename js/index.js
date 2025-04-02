@@ -8,6 +8,7 @@ const FillColorButton = document.querySelector('#Fill');
 const eraseCellButton = document.querySelector('#EraseCell');
 const eraseAllCellButton=document.querySelector('#eraseAllCell');
 const darkShadingButton=document.querySelector('#darkShadingCell');
+const rainbowCell= document.querySelector('#rainbowCell');
 
 
 const defaultGridSize = 10;
@@ -39,10 +40,18 @@ Pen.addEventListener('click',()=>{
 
 // Listen for background fill color change
 FillColorButton.addEventListener("click", ()=>{
-    isPenDisabled = true;
+    isPenDisabled = true; // locks the pen button.
     isDarkShade=true; // locks the Shading button.
     fillColor();
 });
+
+let isRainbowDisabled =false;
+rainbowCell.addEventListener('click',()=>{
+    isRainbowDisabled = false;
+    isPenDisabled = true; // locks the pen button.
+    isDarkShade=true; // locks the Shading button.
+    drawRainbowColor();
+})
 
 let isEraseDisabled=false;
 eraseCellButton.addEventListener("click", ()=>{
@@ -260,28 +269,63 @@ function darkShading(){
         });
 
     });
+}
 
     //a function that darkens the cell.
-    function darkenCell(cell,index){
-        let currentColor=window.getComputedStyle(cell).backgroundColor;
-        let darkerColor = darkenRGB(currentColor,5);
-        cell.style.backgroundColor= darkerColor;
-        penColorCell(cell,index,rgbToHex(darkerColor));
-    }
+function darkenCell(cell,index){
+    let currentColor=window.getComputedStyle(cell).backgroundColor;
+    let darkerColor = darkenRGB(currentColor,5);
+    cell.style.backgroundColor= darkerColor;
+    penColorCell(cell,index,rgbToHex(darkerColor));
+}
 
     
-    function darkenRGB(rgb,percent){
-        const rgbValues=rgb.match(/\d+/g); //regex pattern in finding numeric value in rgb.
-        if (!rgbValues) return rgb;
+function darkenRGB(rgb,percent){
+    const rgbValues=rgb.match(/\d+/g); //regex pattern in finding numeric value in rgb.
+    if (!rgbValues) return rgb;
 
-        //Conver RGB values to integers and darkens the color.
-        let r = Math.max(0, parseInt(rgbValues[0]) - (255*percent / 100)); 
-        let g = Math.max(0, parseInt(rgbValues[1]) - (255*percent / 100));
-        let b = Math.max(0, parseInt(rgbValues[2]) - (255*percent / 100));
+    //Conver RGB values to integers and darkens the color.
+    let r = Math.max(0, parseInt(rgbValues[0]) - (255*percent / 100)); 
+    let g = Math.max(0, parseInt(rgbValues[1]) - (255*percent / 100));
+    let b = Math.max(0, parseInt(rgbValues[2]) - (255*percent / 100));
         
-        return `rgb(${r}, ${g}, ${b})`;
-    }
+    return `rgb(${r}, ${g}, ${b})`;
 }
+
+let isRainbowColor=false;
+function drawRainbowColor(){
+    const rainbowColorCell = document.querySelectorAll('.columns');
+    rainbowColorCell.forEach((cell, index)=>{
+    
+        cell.addEventListener('click',(cell,index)=>{
+            if(isRainbowDisabled) return;
+            penColorCell(cell,index,penColor.value);
+        });
+    
+        cell.addEventListener("mousedown", () => {
+            if(isRainbowDisabled) return;
+            isRainbowColor = true;
+        });
+    
+        cell.addEventListener("mousemove", (event) => {
+            if(isRainbowDisabled) return;
+                
+            if (isRainbowColor && event.target.classList.contains("columns")) {
+                penColorCell(cell,index,penColor.value);
+            }
+        });
+    
+        cell.addEventListener("mouseup", () => {
+            if(isRainbowDisabled) return;
+            isRainbowColor =false;
+        });
+    
+    });   
+}
+
+/*function getRandomRainbowColor (){
+
+}*/
 
 createGrid(defaultGridSize);
 
