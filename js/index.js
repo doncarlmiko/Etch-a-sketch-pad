@@ -51,7 +51,8 @@ rainbowCell.addEventListener('click',()=>{
     isPenDisabled = true; // locks the pen button.
     isDarkShade=true; // locks the Shading button.
     drawRainbowColor();
-})
+    //getRandomRainbowColor();
+});
 
 let isEraseDisabled=false;
 eraseCellButton.addEventListener("click", ()=>{
@@ -299,7 +300,7 @@ function drawRainbowColor(){
     
         cell.addEventListener('click',(cell,index)=>{
             if(isRainbowDisabled) return;
-            penColorCell(cell,index,penColor.value);
+            getRandomRainbowColor (cell.target,index);
         });
     
         cell.addEventListener("mousedown", () => {
@@ -311,7 +312,7 @@ function drawRainbowColor(){
             if(isRainbowDisabled) return;
                 
             if (isRainbowColor && event.target.classList.contains("columns")) {
-                penColorCell(cell,index,penColor.value);
+                getRandomRainbowColor (cell.target,index);
             }
         });
     
@@ -323,9 +324,25 @@ function drawRainbowColor(){
     });   
 }
 
-/*function getRandomRainbowColor (){
+function getRandomRainbowColor (cell,index){
+    let randomRgbColor=[];
+    let RandomNumber;
+    let colorIndex;
 
-}*/
+    for(colorIndex=0; colorIndex<3; colorIndex++){
+            //Generates a RandomNumber
+            RandomNumber= getRandomIndexNumber(100,255);
+            randomRgbColor.push(RandomNumber);
+    }
+    let rgbColor=`rgb(${randomRgbColor})`;
+    cell.style.backgroundColor=rgbColor;
+    penColorCell(cell,index,rgbToHex(rgbColor));
+}
+
+
+function getRandomIndexNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 
 createGrid(defaultGridSize);
 
