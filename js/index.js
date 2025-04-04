@@ -14,7 +14,6 @@ const rainbowCell= document.querySelector('#rainbowCell');
 const defaultGridSize = 10;
 penColor.value = '#000000';
 
-
 let backgroundGridColors = []; //Stores the background color of the grid.
 let penColorHistory = []; // Stores manually selected colors
 
@@ -35,6 +34,8 @@ let isPenDisabled = false; // Pen is working by default
 Pen.addEventListener('click',()=>{
     isPenDisabled = false;
     isDarkShade=true; // locks the Shading button.
+    isEraseDisabled=true; //unlocks the Erase button.
+    isRainbowDisabled =true; //locks the Rainbow button.
     selectGridCell();
 });
 
@@ -42,6 +43,8 @@ Pen.addEventListener('click',()=>{
 FillColorButton.addEventListener("click", ()=>{
     isPenDisabled = true; // locks the pen button.
     isDarkShade=true; // locks the Shading button.
+    isEraseDisabled=true; //unlocks the Erase button.
+    isRainbowDisabled =true; //locks the Rainbow button.
     fillColor();
 });
 
@@ -50,8 +53,8 @@ rainbowCell.addEventListener('click',()=>{
     isRainbowDisabled = false;
     isPenDisabled = true; // locks the pen button.
     isDarkShade=true; // locks the Shading button.
+    isEraseDisabled=true; //unlocks the Erase button.
     drawRainbowColor();
-    //getRandomRainbowColor();
 });
 
 let isEraseDisabled=false;
@@ -59,11 +62,15 @@ eraseCellButton.addEventListener("click", ()=>{
     isEraseDisabled=false; //unlocks the Erase button.
     isPenDisabled = true; //locks the Pen button.
     isDarkShade=true; // locks the Dark Shading button.
+    isRainbowDisabled =true; //locks the Rainbow button.
     eraseCell();
 });
 
 eraseAllCellButton.addEventListener('click',()=>{
+    isEraseDisabled=true; //unlocks the Erase button.
     isPenDisabled = true;
+    isDarkShade=true; // locks the Dark Shading button.
+    isRainbowDisabled =true; //locks the Rainbow button.
     eraseAllCell();
 });
 
@@ -71,6 +78,7 @@ let isDarkShade=false;
 darkShadingButton.addEventListener('click', ()=>{
     isEraseDisabled=true; //Locks the Erase button.
     isPenDisabled = true; //locks the Pen button.
+    isRainbowDisabled =true; //locks the Rainbow button.
     isDarkShade=false; // unlock shading button when clicked again.
     darkShading();
 });
@@ -342,7 +350,7 @@ function createRandomColor(){
 
 function getRandomIndexNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
-  }
+}
 
 createGrid(defaultGridSize);
 
