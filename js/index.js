@@ -297,10 +297,10 @@ let isRainbowColor=false;
 function drawRainbowColor(){
     const rainbowColorCell = document.querySelectorAll('.columns');
     rainbowColorCell.forEach((cell, index)=>{
-    
-        cell.addEventListener('click',(cell,index)=>{
+        
+        cell.addEventListener('click',()=>{
             if(isRainbowDisabled) return;
-            getRandomRainbowColor (cell.target,index);
+            penColorCell(cell,index,createRandomColor());
         });
     
         cell.addEventListener("mousedown", () => {
@@ -312,7 +312,8 @@ function drawRainbowColor(){
             if(isRainbowDisabled) return;
                 
             if (isRainbowColor && event.target.classList.contains("columns")) {
-                getRandomRainbowColor (cell.target,index);
+               
+                penColorCell(cell,index,createRandomColor());
             }
         });
     
@@ -324,19 +325,18 @@ function drawRainbowColor(){
     });   
 }
 
-function getRandomRainbowColor (cell,index){
+function createRandomColor(){
     let randomRgbColor=[];
     let RandomNumber;
     let colorIndex;
 
     for(colorIndex=0; colorIndex<3; colorIndex++){
-            //Generates a RandomNumber
-            RandomNumber= getRandomIndexNumber(100,255);
-            randomRgbColor.push(RandomNumber);
+        //Generates a RandomNumber
+        RandomNumber= getRandomIndexNumber(100,255);
+        randomRgbColor.push(RandomNumber);
     }
     let rgbColor=`rgb(${randomRgbColor})`;
-    cell.style.backgroundColor=rgbColor;
-    penColorCell(cell,index,rgbToHex(rgbColor));
+    return rgbColor;
 }
 
 
