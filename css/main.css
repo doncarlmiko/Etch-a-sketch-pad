@@ -7,6 +7,7 @@
 
 :root{
 	--header-main:clamp(2.5rem, 5vw + 1rem, 3.4375rem);
+    --background-color:rgb(241, 241, 241);
   }
 
 /*-----------------Font styles----------------------*/
@@ -33,6 +34,7 @@
 
 body{
     margin: 0;
+    background-color: var(--background-color);
 }
 header{
     text-align: center;
@@ -52,22 +54,33 @@ header >h1{
     background-color: rgb(44, 36, 181);
     display: flex;
     flex-wrap: wrap;
-    width:400px; 
-    height: 400px;
+    width:345px; 
+    height:286px;
     gap: 0;
+    margin-inline-start: 0.5rem;
+    margin-inline-end: 0.5rem;
 }
 
 .rows{
     display: flex;
     background-color: rgb(128, 128, 128);
+    gap: 0;
 }
 
 .columns{
     background-color: rgb(255, 255, 255);
     border: 0.2px solid rgb(85, 86, 84);
+    gap:0;
 }
 
 .tools{
     display: flex;
     flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+    .content-container{
+        width: 700px;
+        height: 700px;
+    }
 }

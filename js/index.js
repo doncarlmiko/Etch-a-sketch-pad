@@ -83,13 +83,23 @@ darkShadingButton.addEventListener('click', ()=>{
     darkShading();
 });
 
+window.addEventListener('resize', () => {
+    createGrid(gridSize.value || defaultGridSize); // Recreate grid with current size
+});
+
 // Function to create grid
 function createGrid(size) {
     container.textContent = ""; // Clears the container
     backgroundGridColors = []; // Reset color storage
     manuallyColoredCells = []; // Reset manually colored cells
 
-    const cellSize = 400 / size; // Adjust cell size dynamically
+    // Dynamically get the width and height of the content-container
+    const containerStyles= window.getComputedStyle(container);
+    const containerWidth = parseFloat(containerStyles.width);
+    const containerHeight = parseFloat(containerStyles.height);
+
+    const cellWidth= containerWidth / size; // Calculate cell width
+    const cellHeight= containerHeight / size; // Calculate cell height
 
     for (let row = 0; row < size; row++) {
         const divRows = document.createElement('div');
@@ -98,8 +108,8 @@ function createGrid(size) {
         for (let col = 0; col < size; col++) {
             const divColumns = document.createElement('div');
             divColumns.classList.add('columns');
-            divColumns.style.width = `${cellSize}px`;
-            divColumns.style.height = `${cellSize}px`;
+            divColumns.style.width = `${cellWidth}px`; // Set cell width dynamically
+            divColumns.style.height = `${cellHeight}px`;// Set cell height dynamically
             divRows.appendChild(divColumns);
         }
 
