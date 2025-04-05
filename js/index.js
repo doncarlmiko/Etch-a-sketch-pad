@@ -21,7 +21,6 @@ let penColorHistory = []; // Stores manually selected colors
 changeGridSize.addEventListener('click', () => {
     if (gridSize.value <= 0) {
         alert('Minimum of one grid!');
-        gridSize.value = '1';
     } else if (gridSize.value <= 64) {
         createGrid(gridSize.value);
     } else {

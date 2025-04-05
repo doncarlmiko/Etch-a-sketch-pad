@@ -77,6 +77,41 @@ header >h1{
     flex-wrap: wrap;
 }
 
+.gridInput{
+    margin:2rem 4rem 2rem 4rem;
+}
+
+#gridNumber{
+    width: 8.3125rem;
+    height:2.3125rem;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: none;
+    text-align: center;
+}
+
+#gridNumber::placeholder{
+    padding:0 1.5rem 0 1.5rem;
+}
+
+#gridNumber:focus{
+    outline: none;
+}
+
+#changeGridSize{
+    width: 4.875rem;
+    height:2.3125rem;
+    background-color: #0AC83D;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+#changeGridSize:hover{
+    background-color: #246e36;
+}
+
+
 @media (min-width: 768px) {
     .content-container{
         width: 700px;
