@@ -7,8 +7,9 @@
 :root{
 	--header-main:clamp(2.5rem, 5vw + 1rem, 3.4375rem);
     --background-color:rgb(241, 241, 241);
+    --border-color: #0090FF;
   }
-
+  
 /*-----------------Font styles----------------------*/
 .protest-strike-regular {
     font-family: "Protest Strike", serif;
