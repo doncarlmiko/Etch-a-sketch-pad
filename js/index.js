@@ -89,7 +89,7 @@ function createGrid(size) {
     backgroundGridColors = []; // Reset color storage
     manuallyColoredCells = []; // Reset manually colored cells
 
-    const cellSize = 500 / size; // Adjust cell size dynamically
+    const cellSize = 400 / size; // Adjust cell size dynamically
 
     for (let row = 0; row < size; row++) {
         const divRows = document.createElement('div');
@@ -302,6 +302,7 @@ function darkenRGB(rgb,percent){
 }
 
 let isRainbowColor=false;
+//a function that lets you draw a random colored cells.
 function drawRainbowColor(){
     const rainbowColorCell = document.querySelectorAll('.columns');
     rainbowColorCell.forEach((cell, index)=>{
@@ -333,6 +334,7 @@ function drawRainbowColor(){
     });   
 }
 
+//generates a rgb color
 function createRandomColor(){
     let randomRgbColor=[];
     let RandomNumber;
@@ -347,7 +349,7 @@ function createRandomColor(){
     return rgbColor;
 }
 
-
+/*Generates a random number with a limit of min and max number. */
 function getRandomIndexNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }

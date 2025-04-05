@@ -5,29 +5,69 @@
 	
 }
 
+:root{
+	--header-main:clamp(2.5rem, 5vw + 1rem, 3.4375rem);
+  }
+
+/*-----------------Font styles----------------------*/
+.protest-strike-regular {
+    font-family: "Protest Strike", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+    
+.audiowide-regular {
+    font-family: "Audiowide", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.funnel-sans{
+    font-family: "Funnel Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;
+  }
+    
+
 body{
     margin: 0;
+}
+header{
+    text-align: center;
+    margin: 0;
+}
+
+header >h1{
+    font-size: var(--header-main);
 }
 
 .main-container{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
 }
 .content-container{
     background-color: rgb(44, 36, 181);
     display: flex;
     flex-wrap: wrap;
-    width:400px;
-    height:400px;
+    width:400px; 
+    height: 400px;
+    gap: 0;
 }
 
 .rows{
     display: flex;
     background-color: rgb(128, 128, 128);
-   
 }
 
 .columns{
     background-color: rgb(255, 255, 255);
     border: 0.2px solid rgb(85, 86, 84);
+}
+
+.tools{
+    display: flex;
+    flex-wrap: wrap;
 }

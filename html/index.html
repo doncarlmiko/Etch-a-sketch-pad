@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="../js/index.js" defer></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Protest+Strike&display=swap" rel="stylesheet">
+
     <link href="../css/main.css" rel="stylesheet"/>
     <title>Etch a sketch pad</title>
 </head>
 <body>
-    <header>
-        <h1>ETCH A SKETCH</h1>
-    </header>
     <div class="main-container">
+        <header>
+            <h1 class="funnel-sans">Etch a sketch pad</h1>
+        </header>
+        
         <div class="content-container">
-
         </div>
 
+        <!--Input grid size-->
         <div class="gridInput">
             <form action="/action_page.php">
                 <label for="gridNumber">Set size:</label>
@@ -24,19 +29,19 @@
                 <button id ="changeGridSize" type="button">Save</button>
             </form>
         </div>
-    </div>
 
-    <div>
-        <label for="favcolor">Pen</label>
-        <input title="PenColor" type="color" id="penColor" name="favcolor" value="#ff0000">
-        <input title="backgroundColor" type="color" id="backgroundFillColor" name="favcolor" value="#ffffff">
-
-        <button id="Pen" type="button">Pen</button>
-        <button id="Fill" type="button">Fill</button>
-        <button id="darkShadingCell" type="button">Dark shading</button>
-        <button id="rainbowCell" type="button">Rainbow</button>
-        <button id="EraseCell" type="button">Erase</button>
-        <button id="eraseAllCell" type="button">Erase all</button>
+        <div class="tools">
+            <label for="favcolor">Pen</label>
+            <input title="PenColor" type="color" id="penColor" name="favcolor" value="#ff0000">
+            <input title="backgroundColor" type="color" id="backgroundFillColor" name="favcolor" value="#ffffff">
+    
+            <button id="Pen" type="button">Pen</button>
+            <button id="Fill" type="button">Fill</button>
+            <button id="darkShadingCell" type="button">Dark shading</button>
+            <button id="rainbowCell" type="button">Rainbow</button>
+            <button id="EraseCell" type="button">Erase</button>
+            <button id="eraseAllCell" type="button">Erase all</button>
+        </div>
     </div>
     
 </body>
