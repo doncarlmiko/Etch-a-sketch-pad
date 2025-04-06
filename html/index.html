@@ -30,9 +30,19 @@
         </div>
 
         <div class="tools">
-            <input title="PenColor" type="color" id="penColor" name="favcolor" value="#ff0000"><label for="favcolor">Pen</label>
+             <!--Pen color picker input style-->
+            <label class="color-picker-wrapper-pen">
+                <input title="PenColor" type="color" id="penColor" name="favcolor" value="#ff0000" class="color-picker-pen">
+                <span class="custom-color-picker-pen"></span>
+            </label>
+            <label for="favcolor">Pen</label>
 
-            <input title="backgroundColor" type="color" id="backgroundFillColor" name="favcolor" value="#ffffff"><label for="favcolor">Fill</label>
+            <!--Fill color picker input style-->
+            <label class="color-picker-wrapper-fill">
+                <input title="backgroundColor" type="color" id="backgroundFillColor" name="favcolor" value="#ffffff" class="color-picker-fill">
+                <span class="custom-color-picker-fill"></span>
+            </label>
+            <label for="favcolor">Fill</label>
     
             <button id="Pen" type="button">Pen</button>
             <button id="Fill" type="button">Fill</button>

@@ -3,7 +3,7 @@
 *::after{
 	box-sizing: border-box;	
 }
-
+/*Css variables*/
 :root{
 	--header-main:clamp(2.5rem, 5vw + 1rem, 3.4375rem);
     --background-color:rgb(241, 241, 241);
@@ -11,19 +11,6 @@
   }
   
 /*-----------------Font styles----------------------*/
-.protest-strike-regular {
-    font-family: "Protest Strike", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-    
-.audiowide-regular {
-    font-family: "Audiowide", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-
 .funnel-sans{
     font-family: "Funnel Sans", sans-serif;
     font-optical-sizing: auto;
@@ -45,11 +32,14 @@ header >h1{
     font-size: var(--header-main);
 }
 
+/*main div container styling*/
 .main-container{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
 }
+
+/*Main container for the grid cells*/
 .content-container{
     background-color: rgb(44, 36, 181);
     display: flex;
@@ -61,6 +51,7 @@ header >h1{
     margin-inline-end: 0.5rem;
 }
 
+/*Grid cell styling*/
 .rows{
     display: flex;
     background-color: rgb(128, 128, 128);
@@ -73,11 +64,7 @@ header >h1{
     gap:0;
 }
 
-.tools{
-    display: flex;
-    flex-wrap: wrap;
-}
-
+/*Grid size input styling*/
 .gridInput{
     margin:2rem 4rem 2rem 4rem;
 }
@@ -110,6 +97,77 @@ header >h1{
 
 #changeGridSize:hover{
     background-color: #246e36;
+}
+
+/*container for the color picker and buttons*/
+.tools{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Hide the default color picker */
+.color-picker-pen{
+    display: none;
+    margin: 0; /* Ensure no extra margin is applied */
+}
+
+/* Style the custom circular button */
+.color-picker-wrapper-pen{
+    position: relative;
+    display: inline-block;
+    margin: 0; /* Ensure no extra margin */
+}
+
+.custom-color-picker-pen{
+    display: inline-block;
+    width: 2.5625rem; /* Same size as your current color picker */
+    height: 2.5625rem;
+    border-radius: 50%; /* Makes it circular */
+    background-color: #000000; /* Default color */
+    border: 2px solid var(--border-color); /* Optional border */
+    cursor: pointer;
+}
+
+.color-picker-wrapper-pen input[type="color"] {
+    opacity: 0; /* Hide the input
+    position: absolute;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Hide the default color picker */
+.color-picker-fill{
+    display: none;
+    margin: 0; /* Ensure no extra margin is applied */
+}
+
+.color-picker-wrapper-fill {
+    position: relative;
+    display: inline-block;
+    margin: 0; /* Ensure no extra margin */
+}
+
+.custom-color-picker-fill{
+    display: inline-block;
+    width: 2.5625rem; /* Same size as your current color picker */
+    height: 2.5625rem;
+    border-radius: 50%; /* Makes it circular */
+    background-color: #f4f4f4; /* Default color */
+    border: 2px solid var(--border-color); /* Optional border */
+    cursor: pointer;
+}
+
+.color-picker-wrapper-fill input[type="color"] {
+    opacity: 0; /* Hide the input
+    position: absolute;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
 
 

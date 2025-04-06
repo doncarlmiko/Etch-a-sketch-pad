@@ -29,6 +29,19 @@ changeGridSize.addEventListener('click', () => {
     }
 });
 
+//Pen color picker color input
+const customColorPicker = document.querySelector('.custom-color-picker-pen');
+
+const customColorPickerFill = document.querySelector('.custom-color-picker-fill');
+
+penColor.addEventListener('input', () => {
+    customColorPicker.style.backgroundColor = penColor.value; // Update pen color
+});
+
+backgroundFillColor.addEventListener('input', () => {
+    customColorPickerFill.style.backgroundColor = backgroundFillColor.value; // Update fill color
+});
+
 let isPenDisabled = false; // Pen is working by default
 Pen.addEventListener('click',()=>{
     isPenDisabled = false;
