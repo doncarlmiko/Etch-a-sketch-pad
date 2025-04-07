@@ -99,6 +99,8 @@ window.addEventListener('resize', () => {
     createGrid(gridSize.value || defaultGridSize); // Recreate grid with current size
 });
 
+
+
 // Function to create grid
 function createGrid(size) {
     container.textContent = ""; // Clears the container
@@ -124,7 +126,6 @@ function createGrid(size) {
             divColumns.style.height = `${cellHeight}px`;// Set cell height dynamically
             divRows.appendChild(divColumns);
         }
-
         container.appendChild(divRows);
     }
     getGridColors(); // Store initial colors after grid creation

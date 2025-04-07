@@ -7,6 +7,7 @@
 :root{
 	--header-main:clamp(2.5rem, 5vw + 1rem, 3.4375rem);
     --background-color:rgb(241, 241, 241);
+    --button-background-color: #46544a;
     --border-color: #0090FF;
   }
   
@@ -103,6 +104,8 @@ header >h1{
 .tools{
     display: flex;
     flex-wrap: wrap;
+    gap: 1.5rem;
+    background-color: white;
 }
 
 /* Hide the default color picker */
@@ -168,6 +171,31 @@ header >h1{
     width: 100%;
     height: 100%;
     cursor: pointer;
+}
+
+/*Color picker positioning style*/
+.color-picker-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.border-styling{
+    border: 2px solid var(--border-color);
+    border-radius: 15%;
+}
+
+#Pen{
+    width: 2.5625rem;
+    height: 2.8125rem;
+    cursor: pointer;  
+}
+#Pen:hover{
+    background-color: var(--button-background-color);
+}
+
+#Pen:active{
+    outline: none;
+    background-color: var(--button-background-color);
 }
 
 
