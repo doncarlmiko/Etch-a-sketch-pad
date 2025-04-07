@@ -43,63 +43,80 @@ backgroundFillColor.addEventListener('input', () => {
 });
 
 let isPenDisabled = false; // Pen is working by default
-Pen.addEventListener('click',()=>{
+Pen.addEventListener('click',(event)=>{
     isPenDisabled = false;
     isDarkShade=true; // locks the Shading button.
     isEraseDisabled=true; //unlocks the Erase button.
     isRainbowDisabled =true; //locks the Rainbow button.
     selectGridCell();
+    changeButtonColor(event.target); // Change button colors based on state
 });
 
 // Listen for background fill color change
-FillColorButton.addEventListener("click", ()=>{
+FillColorButton.addEventListener("click", (event)=>{
     isPenDisabled = true; // locks the pen button.
     isDarkShade=true; // locks the Shading button.
     isEraseDisabled=true; //unlocks the Erase button.
     isRainbowDisabled =true; //locks the Rainbow button.
     fillColor();
+    changeButtonColor(event.target); // Change button colors based on state
 });
 
 let isRainbowDisabled =false;
-rainbowCell.addEventListener('click',()=>{
+rainbowCell.addEventListener('click',(event)=>{
     isRainbowDisabled = false;
     isPenDisabled = true; // locks the pen button.
     isDarkShade=true; // locks the Shading button.
     isEraseDisabled=true; //unlocks the Erase button.
     drawRainbowColor();
+    changeButtonColor(event.target); // Change button colors based on state
 });
 
 let isEraseDisabled=false;
-eraseCellButton.addEventListener("click", ()=>{
+eraseCellButton.addEventListener("click", (event)=>{
     isEraseDisabled=false; //unlocks the Erase button.
     isPenDisabled = true; //locks the Pen button.
     isDarkShade=true; // locks the Dark Shading button.
     isRainbowDisabled =true; //locks the Rainbow button.
     eraseCell();
+    changeButtonColor(event.target); // Change button colors based on state
 });
 
-eraseAllCellButton.addEventListener('click',()=>{
+eraseAllCellButton.addEventListener('click',(event)=>{
     isEraseDisabled=true; //unlocks the Erase button.
     isPenDisabled = true;
     isDarkShade=true; // locks the Dark Shading button.
     isRainbowDisabled =true; //locks the Rainbow button.
     eraseAllCell();
+    changeButtonColor(event.target);
 });
 
 let isDarkShade=false;
-darkShadingButton.addEventListener('click', ()=>{
+darkShadingButton.addEventListener('click', (event)=>{
     isEraseDisabled=true; //Locks the Erase button.
     isPenDisabled = true; //locks the Pen button.
     isRainbowDisabled =true; //locks the Rainbow button.
     isDarkShade=false; // unlock shading button when clicked again.
     darkShading();
+    changeButtonColor(event.target); // Change button colors based on state
 });
 
 window.addEventListener('resize', () => {
     createGrid(gridSize.value || defaultGridSize); // Recreate grid with current size
 });
 
+function changeButtonColor(target) {
+    // Reset all button colors first
+    Pen.style.backgroundColor = "";
+    FillColorButton.style.backgroundColor = "";
+    darkShadingButton.style.backgroundColor = "";
+    eraseCellButton.style.backgroundColor = "";
+    rainbowCell.style.backgroundColor = "";
+    eraseAllCellButton.style.backgroundColor = "";
 
+    // Change the background color of the clicked button
+    target.style.backgroundColor = "#46544a";
+}
 
 // Function to create grid
 function createGrid(size) {
@@ -225,7 +242,6 @@ function fillColor() {
 }
 
 let manuallyColoredCells = []; // Array to track manually colored cells
-
 function manuallyColorCell(index) {
     if (!manuallyColoredCells.includes(index)) {
         manuallyColoredCells.push(index); // Store the index
