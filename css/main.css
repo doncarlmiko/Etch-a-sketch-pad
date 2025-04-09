@@ -31,6 +31,8 @@ header{
 
 header >h1{
     font-size: var(--header-main);
+    margin-block-start: max(2dvh,1rem);
+    margin-block-end: max(2dvh,1rem);
 }
 
 /*main div container styling*/
@@ -107,10 +109,10 @@ header >h1{
     gap: 2rem;
     background-color: white;
     justify-content: center;
-    padding-inline-start: 2rem;
-    padding-inline-end: 2rem;
-    padding-block-start: 1rem;
-    padding-block-end: 1rem;
+    padding-inline-start:max(5dvh,1rem);
+    padding-inline-end: max(5dvh,1rem);
+    padding-block-start: max(2dvh,1rem);
+    padding-block-end: max(2dvh,1rem);
     height: 100%;
 }
 
@@ -129,8 +131,8 @@ header >h1{
 
 .custom-color-picker-pen{
     display: inline-block;
-    width: 2.5625rem; /* Same size as your current color picker */
-    height: 2.5625rem;
+    width: max(5dvh,2.5625rem); /* Same size as your current color picker */
+    height: max(5dvh,2.5625rem);
     border-radius: 50%; /* Makes it circular */
     background-color: #000000; /* Default color */
     border: 2px solid var(--border-color); /* Optional border */
@@ -161,8 +163,8 @@ header >h1{
 
 .custom-color-picker-fill{
     display: inline-block;
-    width: 2.5625rem; /* Same size as your current color picker */
-    height: 2.5625rem;
+    width: max(5dvh,2.5625rem); /* Same size as your current color picker */
+    height: max(5dvh,2.5625rem);
     border-radius: 50%; /* Makes it circular */
     background-color: #f4f4f4; /* Default color */
     border: 2px solid var(--border-color); /* Optional border */
@@ -212,10 +214,47 @@ header >h1{
 .item-5{order: 1;}
 .item-6{order: 2;}
 
-@media (min-width: 768px) {
+/*Media queries for small screens.*/
+@media (min-width: 375px) {
     .content-container{
-        width: 700px;
-        height: 700px;
+        width:360px; 
+        height:286px;
+    }
+}
+
+@media (min-width: 390px) {
+    .content-container{
+        width:395px; 
+        height:400px;
+    }
+
+    .custom-color-picker-pen{
+        width: max(7dvh,2.5625rem); /* Same size as your current color picker */
+        height: max(7dvh,2.5625rem);
+    }
+
+    .custom-color-picker-fill{
+        width: max(7dvh,2.5625rem); /* Same size as your current color picker */
+        height: max(7dvh,2.5625rem);
+    }
+
+    .tools{
+        padding-inline-start:max(2dvh,1rem);
+        padding-inline-end: max(2dvh,1rem);
+        padding-block-start: max(5dvh,1rem);
+        padding-block-end: max(10dvh,1rem);
+    }
+
+    #Pen, #darkShadingCell{
+        width: max(7dvh,2.5625rem);
+        height: max(7dvh,2.8125rem);
+        cursor: pointer;  
+    }
+
+    #Fill, #rainbowCell, #EraseCell, #eraseAllCell{
+        width:max(7dvh,2.4375rem);
+        height:max(7dvh,2.75rem);
+        cursor: pointer;  
     }
 }
 
@@ -226,4 +265,25 @@ header >h1{
     .item-4{order: 4;}
     .item-5{order: 5;}
     .item-6{order: 6;}
+
+    .tools{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        background-color: white;
+        justify-content: center;
+        padding-inline-start:max(15dvh,2rem);
+        padding-inline-end: max(15dvh,2rem);
+        padding-block-start: max(5dvh,1rem);
+        padding-block-end: max(5dvh,1rem);
+        height: 100%;
+    }
+}
+
+/*Media queries for table size screens.*/
+@media (min-width: 768px) {
+    .content-container{
+        width: 700px;
+        height: 700px;
+    }
 }
