@@ -104,7 +104,7 @@ header >h1{
 .tools{
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 2rem;
     background-color: white;
 }
 
@@ -184,7 +184,7 @@ header >h1{
     border-radius: 15%;
 }
 
-#Pen{
+#Pen, #darkShadingCell{
     width: 2.5625rem;
     height: 2.8125rem;
     cursor: pointer;  
@@ -193,9 +193,10 @@ header >h1{
     background-color: var(--button-background-color);
 }
 
-#Pen:active{
-    outline: none;
-    background-color: var(--button-background-color);
+#Fill, #rainbowCell, #EraseCell, #eraseAllCell{
+    width:2.4375rem;
+    height:2.75rem;
+    cursor: pointer;  
 }
 
 
