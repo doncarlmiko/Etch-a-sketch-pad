@@ -106,6 +106,12 @@ header >h1{
     flex-wrap: wrap;
     gap: 2rem;
     background-color: white;
+    justify-content: center;
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+    padding-block-start: 1rem;
+    padding-block-end: 1rem;
+    height: 100%;
 }
 
 /* Hide the default color picker */
@@ -185,8 +191,8 @@ header >h1{
 }
 
 #Pen, #darkShadingCell{
-    width: 2.5625rem;
-    height: 2.8125rem;
+    width: max(5dvh,2.5625rem);
+    height: max(5dvh,2.8125rem);
     cursor: pointer;  
 }
 #Pen:hover{
@@ -194,15 +200,30 @@ header >h1{
 }
 
 #Fill, #rainbowCell, #EraseCell, #eraseAllCell{
-    width:2.4375rem;
-    height:2.75rem;
+    width:max(5dvh,2.4375rem);
+    height:max(5dvh,2.75rem);
     cursor: pointer;  
 }
 
+.item-1{order: 3;}
+.item-2{order: 4;}
+.item-3{order: 5;}
+.item-4{order: 6;}
+.item-5{order: 1;}
+.item-6{order: 2;}
 
 @media (min-width: 768px) {
     .content-container{
         width: 700px;
         height: 700px;
     }
+}
+
+@media (min-width: 540px) {
+    .item-1{order: 1;}
+    .item-2{order: 2;}
+    .item-3{order: 3;}
+    .item-4{order: 4;}
+    .item-5{order: 5;}
+    .item-6{order: 6;}
 }
