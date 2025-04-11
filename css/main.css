@@ -280,14 +280,14 @@ header >h1{
 
     .content-container{
         width: 500px;
-        height: 450px;
+        height: 400px;
         margin-inline-start: max(2.5dvh,0.5rem);
         margin-inline-end:  max(2.5dvh,0.5rem);
     }
 
     .gridInput{
-        margin-block-start: max(2dvh,1rem);
-        margin-block-end: max(2dvh,1rem);
+        margin-block-start: max(5dvh,1rem);
+        margin-block-end: max(5dvh,1rem);
     }
 
     .tools{
@@ -296,6 +296,7 @@ header >h1{
         padding-inline-start: max(2dvh,1rem);
         padding-inline-end: max(2dvh,1rem);
         position:inherit;
+        gap: 1.5rem;
     }
 
     .custom-color-picker-pen{
@@ -324,8 +325,13 @@ header >h1{
 /*Media queries for table size screens.*/
 @media (min-width: 768px) {
     .content-container{
-        width: 700px;
-        height: 700px;
+        width: 710px;
+        height: 650px;
+    }
+
+    .gridInput{
+        margin-block-start: max(4dvh,1rem);
+        margin-block-end: max(4dvh,1rem);
     }
 
     .tools{
@@ -334,3 +340,32 @@ header >h1{
         height: 100%;
     }
 }
+
+@media(min-width:820px){
+    .content-container{
+        width: 750px;
+        height: 700px;
+    }
+
+    .tools{
+        padding-block-start: max(6dvh,1rem);
+        padding-block-end: max(6dvh,1rem);
+    }
+}
+
+/*
+@media (min-width: 1024px) and (min-height: 1366px) and (orientation: portrait) {
+    .content-container{
+        margin-inline-start: max(10dvh,0.5rem);
+        margin-inline-end:  max(10dvh,0.5rem);
+    }
+}
+
+@media (width: 1024px) and (height: 600px) and (orientation: portrait) {
+    .content-container{
+        width: 200px;
+        height: 200px;
+        margin-inline-start: max(10dvh,0.5rem);
+        margin-inline-end:  max(10dvh,0.5rem);
+    }
+}*/
