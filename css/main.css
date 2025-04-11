@@ -113,7 +113,8 @@ header >h1{
     padding-inline-end: max(5dvh,1rem);
     padding-block-start: max(2dvh,1rem);
     padding-block-end: max(2dvh,1rem);
-    height: 100%;
+    position:fixed;
+    bottom:0;
 }
 
 /* Hide the default color picker */
@@ -258,6 +259,17 @@ header >h1{
     }
 }
 
+@media(min-width:430px){
+    .content-container{
+        width: 412px;
+        height: 400px;
+    }
+
+    .tools{
+        padding-block-end: max(12dvh,1rem);
+    }
+}
+
 @media (min-width: 540px) {
     .item-1{order: 1;}
     .item-2{order: 2;}
@@ -266,17 +278,46 @@ header >h1{
     .item-5{order: 5;}
     .item-6{order: 6;}
 
+    .content-container{
+        width: 500px;
+        height: 450px;
+        margin-inline-start: max(2.5dvh,0.5rem);
+        margin-inline-end:  max(2.5dvh,0.5rem);
+    }
+
+    .gridInput{
+        margin-block-start: max(2dvh,1rem);
+        margin-block-end: max(2dvh,1rem);
+    }
+
     .tools{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        background-color: white;
-        justify-content: center;
-        padding-inline-start:max(15dvh,2rem);
-        padding-inline-end: max(15dvh,2rem);
-        padding-block-start: max(5dvh,1rem);
-        padding-block-end: max(5dvh,1rem);
-        height: 100%;
+        padding-block-start: max(4dvh,1rem);
+        padding-block-end: max(4dvh,1rem);
+        padding-inline-start: max(2dvh,1rem);
+        padding-inline-end: max(2dvh,1rem);
+        position:inherit;
+    }
+
+    .custom-color-picker-pen{
+        width: max(5dvh,2.5625rem); /* Same size as your current color picker */
+        height: max(5dvh,2.5625rem);
+    }
+
+    .custom-color-picker-fill{
+        width: max(5dvh,2.5625rem); /* Same size as your current color picker */
+        height: max(5dvh,2.5625rem);
+    }
+
+    #Pen, #darkShadingCell{
+        width: max(5dvh,2.5625rem);
+        height: max(5dvh,2.8125rem);
+        cursor: pointer;  
+    }
+
+    #Fill, #rainbowCell, #EraseCell, #eraseAllCell{
+        width:max(5dvh,2.4375rem);
+        height:max(5dvh,2.75rem);
+        cursor: pointer;  
     }
 }
 
@@ -285,5 +326,11 @@ header >h1{
     .content-container{
         width: 700px;
         height: 700px;
+    }
+
+    .tools{
+        padding-block-start: max(3dvh,1rem);
+        padding-block-end: max(3dvh,1rem);
+        height: 100%;
     }
 }
