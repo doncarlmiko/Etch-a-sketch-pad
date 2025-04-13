@@ -45,13 +45,12 @@ header >h1{
 /*Main container for the grid cells*/
 .content-container{
     background-color: rgb(44, 36, 181);
-    display: flex;
     flex-wrap: wrap;
     width:345px; 
     height:286px;
     gap: 0;
-    margin-inline-start: 0.5rem;
-    margin-inline-end: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*Grid cell styling*/
@@ -69,7 +68,9 @@ header >h1{
 
 /*Grid size input styling*/
 .gridInput{
-    margin:2rem 4rem 2rem 4rem;
+    justify-items: center;
+    align-items: center;
+    padding: 2rem 4rem 2rem 4rem;
 }
 
 #gridNumber{
@@ -244,6 +245,7 @@ header >h1{
         padding-inline-end: max(2dvh,1rem);
         padding-block-start: max(5dvh,1rem);
         padding-block-end: max(10dvh,1rem);
+        position:inherit;
     }
 
     #Pen, #darkShadingCell{
@@ -281,8 +283,6 @@ header >h1{
     .content-container{
         width: 500px;
         height: 400px;
-        margin-inline-start: max(2.5dvh,0.5rem);
-        margin-inline-end:  max(2.5dvh,0.5rem);
     }
 
     .gridInput{
@@ -295,7 +295,6 @@ header >h1{
         padding-block-end: max(4dvh,1rem);
         padding-inline-start: max(2dvh,1rem);
         padding-inline-end: max(2dvh,1rem);
-        position:inherit;
         gap: 1.5rem;
     }
 
@@ -326,7 +325,7 @@ header >h1{
 @media (min-width: 768px) {
     .content-container{
         width: 710px;
-        height: 650px;
+        height: 600px;
     }
 
     .gridInput{
@@ -341,10 +340,10 @@ header >h1{
     }
 }
 
-@media(min-width:820px){
+@media(min-width:800px){
     .content-container{
-        width: 750px;
-        height: 700px;
+        width: 760px;
+        height: 640px;
     }
 
     .tools{
@@ -353,19 +352,45 @@ header >h1{
     }
 }
 
-/*
-@media (min-width: 1024px) and (min-height: 1366px) and (orientation: portrait) {
+@media(min-width:912px){
     .content-container{
-        margin-inline-start: max(10dvh,0.5rem);
-        margin-inline-end:  max(10dvh,0.5rem);
+        width: 840px;
+        height: 800px;
+    }
+
+    .tools{
+        gap:2rem;
     }
 }
 
-@media (width: 1024px) and (height: 600px) and (orientation: portrait) {
+/*media query for Ipad Pro*/
+@media (device-width: 1024px) and (device-height: 1366px){
     .content-container{
-        width: 200px;
-        height: 200px;
-        margin-inline-start: max(10dvh,0.5rem);
-        margin-inline-end:  max(10dvh,0.5rem);
+        width: 950px;
+        height: 840px;
     }
-}*/
+}
+
+/*media query for Nest Hub*/
+@media (width: 1024px) and (height: 600px){
+    .content-container{
+        width: 450px;
+        height: 320px;
+    }
+    .tools{
+        padding-block-start: max(2dvh,1rem);
+        padding-block-end: max(2dvh,1rem);
+    }
+}
+
+@media(min-width:1280px){
+    .content-container{
+        width: 520px;
+        height: 475px;
+    }
+
+    .tools{
+        padding-block-start: max(4dvh,1rem);
+        padding-block-end: max(4dvh,1rem);
+    }
+}
