@@ -21,4 +21,4 @@ Here are the features and tools that you can use to draw on the sketch pad:
 
 8. Erase all tool - Lets you erase all of the drawings that you made.
 
-![Etch-a-sketch preview](../img/Etch-a-sketch-sample-drawing.png)
+![Etch-a-sketch preview](img/Etch-a-sketch-sample-drawing.png)
