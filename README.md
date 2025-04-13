@@ -3,7 +3,7 @@
 A simple sketch-pad that lets
 you select each grid boxes to draw a pixel-like shapes or forms.
 
-![Etch-a-sketch preview](img/Etch a sketch sample drawing.png)
+![Etch-a-sketch preview](img/Etch-a-sketch sample-drawing.png)
 
 Here are the features and tools that you can use to draw on the sketch pad:
 
