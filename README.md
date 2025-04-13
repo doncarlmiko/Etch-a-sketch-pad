@@ -3,8 +3,6 @@
 A simple sketch-pad that lets
 you select each grid boxes to draw a pixel-like shapes or forms.
 
-![Etch-a-sketch preview](img/Etch-a-sketch-sample-drawing.png)
-
 Here are the features and tools that you can use to draw on the sketch pad:
 
 1. Pen color picker - Lets you select the Color of the Pen.
@@ -22,3 +20,5 @@ Here are the features and tools that you can use to draw on the sketch pad:
 7. Erase tool - erase a one cell manually.
 
 8. Erase all tool - Lets you erase all of the drawings that you made.
+
+![Etch-a-sketch preview](../img/Etch-a-sketch-sample-drawing.png)
