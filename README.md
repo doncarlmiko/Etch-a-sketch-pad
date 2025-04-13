@@ -3,6 +3,8 @@
 A simple sketch-pad that lets
 you select each grid boxes to draw a pixel-like shapes or forms.
 
+[Live preview](https://doncarlmiko.github.io/Etch-a-sketch-pad/html/index.html)
+
 Here are the features and tools that you can use to draw on the sketch pad:
 
 1. Pen color picker - Lets you select the Color of the Pen.
