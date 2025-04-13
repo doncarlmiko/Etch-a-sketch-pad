@@ -282,12 +282,7 @@ header >h1{
 
     .content-container{
         width: 500px;
-        height: 400px;
-    }
-
-    .gridInput{
-        margin-block-start: max(5dvh,1rem);
-        margin-block-end: max(5dvh,1rem);
+        height: 410px;
     }
 
     .tools{
@@ -324,13 +319,8 @@ header >h1{
 /*Media queries for table size screens.*/
 @media (min-width: 768px) {
     .content-container{
-        width: 710px;
-        height: 600px;
-    }
-
-    .gridInput{
-        margin-block-start: max(4dvh,1rem);
-        margin-block-end: max(4dvh,1rem);
+        width: 700px;
+        height: 680px;
     }
 
     .tools{
@@ -343,7 +333,7 @@ header >h1{
 @media(min-width:800px){
     .content-container{
         width: 760px;
-        height: 640px;
+        height: 740px;
     }
 
     .tools{
@@ -354,10 +344,9 @@ header >h1{
 
 @media(min-width:912px){
     .content-container{
-        width: 840px;
-        height: 800px;
+        width: 820px;
+        height: 877px;
     }
-
     .tools{
         gap:2rem;
     }
@@ -367,15 +356,15 @@ header >h1{
 @media (device-width: 1024px) and (device-height: 1366px){
     .content-container{
         width: 950px;
-        height: 840px;
+        height: 880px;
     }
 }
 
 /*media query for Nest Hub*/
 @media (width: 1024px) and (height: 600px){
     .content-container{
-        width: 450px;
-        height: 320px;
+        width: 400px;
+        height: 300px;
     }
     .tools{
         padding-block-start: max(2dvh,1rem);
